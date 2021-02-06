@@ -43,12 +43,8 @@ namespace UD22_EJ1.View
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnVer = new System.Windows.Forms.Button();
-            this.btnVerTodo = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnActualizar
@@ -162,61 +158,33 @@ namespace UD22_EJ1.View
             this.btnEliminar.Text = "Eliminar cliente";
             this.btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // btnVer
-            // 
-            this.btnVer.Location = new System.Drawing.Point(711, 280);
-            this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(133, 34);
-            this.btnVer.TabIndex = 25;
-            this.btnVer.Text = "Ver cliente";
-            this.btnVer.UseVisualStyleBackColor = true;
-            // 
-            // btnVerTodo
-            // 
-            this.btnVerTodo.Location = new System.Drawing.Point(711, 332);
-            this.btnVerTodo.Name = "btnVerTodo";
-            this.btnVerTodo.Size = new System.Drawing.Size(133, 34);
-            this.btnVerTodo.TabIndex = 26;
-            this.btnVerTodo.Text = "Ver todos clientes";
-            this.btnVerTodo.UseVisualStyleBackColor = true;
-            // 
             // listView1
             // 
+            this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(39, 118);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(640, 59);
+            this.listView1.Size = new System.Drawing.Size(640, 248);
             this.listView1.TabIndex = 27;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(39, 392);
+            this.label6.Location = new System.Drawing.Point(39, 393);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(774, 90);
+            this.label6.Size = new System.Drawing.Size(838, 60);
             this.label6.TabIndex = 28;
             this.label6.Text = resources.GetString("label6.Text");
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(39, 198);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(640, 168);
-            this.dataGridView1.TabIndex = 29;
             // 
             // Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 517);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(906, 490);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.btnVerTodo);
-            this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnAgregar);
@@ -232,7 +200,6 @@ namespace UD22_EJ1.View
             this.Controls.Add(this.label1);
             this.Name = "Cliente";
             this.Text = "Menu";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,18 +207,15 @@ namespace UD22_EJ1.View
 
         #endregion
 
-        public System.Windows.Forms.Button btnActualizar;
-        public System.Windows.Forms.Button btnAgregar;
-        public System.Windows.Forms.Button btnEliminar;
-        public System.Windows.Forms.Button btnVer;
-        public System.Windows.Forms.Button btnVerTodo;
-        public System.Windows.Forms.DateTimePicker dateTimePicker1;
-        public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.TextBox textBox3;
-        public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.ListView listView1;
-        public System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

@@ -1,120 +1,83 @@
 ﻿using System;
-using System.Data;
-using System.Windows.Forms;
+using UD22_EJ1.DataLayer;
+using UD22_EJ1.DTO;
 using UD22_EJ1.Model;
 using UD22_EJ1.View;
 
 namespace UD22_EJ1.Controller
 {
-    class Controlador
+    class Controlador : IControlador
     {
-        DataTable datos = new DataTable("Customers");
+        private readonly ICliente cliente;
+        private readonly IClienteRepositorio repositorio;
 
-        public Controlador(Cliente cliente)
+        public Controlador(ICliente cliente, IClienteRepositorio repositorio)
         {
-            string nombre = cliente.textBox1.Text;
-            string apellido = cliente.textBox2.Text;
-            string direccion = cliente.textBox3.Text;
-            string dni = cliente.textBox4.Text;
-            string fecha = cliente.dateTimePicker1.Value.ToString("dd-MM-yyyy");
+            this.cliente = cliente;
+            this.repositorio = repositorio;
 
-            cliente.btnAgregar.Click += (sender, EventArgs) =>
-            {
-                BtnAgregar_Click(sender, EventArgs, nombre, apellido, direccion, dni, fecha);
-                MessageBox.Show(nombre);
-            };
-
-            cliente.btnActualizar.Click += (sender, EventArgs) =>
-            {
-                BtnActualizar_Click(sender, EventArgs, nombre, apellido, direccion, dni, fecha);
-                MessageBox.Show(nombre);
-            };
-
-            cliente.btnEliminar.Click += (sender, EventArgs) =>
-            {
-                BtnEliminar_Click(sender, EventArgs, dni);
-                MessageBox.Show(dni);
-            };
-
-            cliente.btnVer.Click += (sender, EventArgs) =>
-            { 
-                BtnVer_Click(sender, EventArgs, dni, cliente);
-                MessageBox.Show(dni);
-            };
-
-            cliente.btnVerTodo.Click += (sender, EventArgs) =>
-            {
-                BtnVerTodo_Click(sender, EventArgs);
-                
-            };
+            // Escuchar eventos de la vista
+            cliente.ClienteCreado += Cliente_ClienteCreado;
+            cliente.ClienteActualizado += Cliente_ClienteActualizado;
+            cliente.ClienteEliminado += Cliente_ClienteEliminado;
+            cliente.LeerClientes += Cliente_LeerClientes;
+            cliente.ClienteSeleccionado += Cliente_ClienteSeleccionado;
         }
 
-        private void BtnAgregar_Click(object sender, EventArgs e, string nombre, string apellido, string direccion, string dni, string fecha)
+        public Modelo Crear(Modelo modelo)
         {
-            Modelo modelo = new Modelo();
-            modelo.ConectarBD();
-            string cadena = "USE clientes;";
-            //modelo.Ejecutar(cadena);
-            cadena = "INSERT INTO cliente VALUES(" + nombre + "," + apellido + "," + direccion + "," + dni + "," + fecha + ");";
-            //MessageBox.Show(cadena);
-            //modelo.Ejecutar(cadena);
-            modelo.DesconectarBD();
+            repositorio.AñadirCliente(modelo.ClienteActual);
+            return Leer(modelo);
         }
 
-        private void BtnActualizar_Click(object sender, EventArgs e, string nombre, string apellido, string direccion, string dni, string fecha)
+        public Modelo Leer(Modelo modelo)
         {
-            Modelo modelo = new Modelo();
-            modelo.ConectarBD();
-            string cadena = "USE clientes;";
-            //modelo.Ejecutar(cadena);
-            cadena = "UPDATE cliente SET nombre =" + nombre + ",apellido=" + apellido + ",direccion=" + direccion + ",dni=" + dni + ", fecha=" + fecha + " WHERE dni=" + dni + ";";
-            //MessageBox.Show(cadena);
-            //modelo.Ejecutar(cadena);
-            modelo.DesconectarBD();
+            modelo.Clientes = repositorio.ObtenerClientes();
+            modelo.ClienteActual = new ClienteDto();
+            return modelo;
         }
 
-        private void BtnEliminar_Click(object sender, EventArgs e, string dni)
+        public Modelo Actualizar(Modelo modelo)
         {
-            Modelo modelo = new Modelo();
-            modelo.ConectarBD();
-            string cadena = "USE clientes;";
-            //modelo.Ejecutar(cadena);
-            cadena = "DELETE FROM cliente WHERE dni=" + dni + ";";
-            //MessageBox.Show(cadena);
-            //modelo.Ejecutar(cadena);
-            modelo.DesconectarBD();
+            repositorio.ActualizarCliente(modelo.ClienteActual);
+            return Leer(modelo);
         }
 
-        private void BtnVer_Click(object sender, EventArgs e, string dni, Cliente cliente)
+        public Modelo Eliminar(Modelo modelo)
         {
-            Modelo modelo = new Modelo();
-            modelo.ConectarBD();
-            string cadena = "USE clientes;";
-            //modelo.Ejecutar(cadena);
-            cadena = "SELECT * FROM cliente WHERE dni=" + dni + ";";
-            //MessageBox.Show(cadena);
-            //modelo.Ejecutar(cadena);
-            datos = modelo.Leer(cadena);
-
-            cliente.dataGridView1.DataSource = datos;
-
-            modelo.DesconectarBD();
-
-            
+            repositorio.EliminarCliente(modelo.ClienteActual);
+            return Leer(modelo);
         }
 
-        private void BtnVerTodo_Click(object sender, EventArgs e)
+        public Modelo Seleccionar(Modelo modelo)
         {
-            Modelo modelo = new Modelo();
-            modelo.ConectarBD();
-            string cadena = "USE clientes;";
-            //modelo.Ejecutar(cadena);
-            cadena = "SELECT * FROM cliente;";
-            //MessageBox.Show(cadena);
-            //modelo.Ejecutar(cadena);
-            modelo.DesconectarBD();
+            modelo.ClienteActual = repositorio.ObtenerCliente(modelo.ClienteActual);
+            return modelo;
+        }
 
-            modelo.Leer(cadena);
+        private void Cliente_ClienteCreado(object sender, Modelo e)
+        {
+            cliente.ActualizarVista(Crear(e));
+        }
+
+        private void Cliente_ClienteActualizado(object sender, Modelo e)
+        {
+            cliente.ActualizarVista(Actualizar(e));
+        }
+
+        private void Cliente_ClienteEliminado(object sender, Modelo e)
+        {
+            cliente.ActualizarVista(Eliminar(e));
+        }
+
+        private void Cliente_LeerClientes(object sender, Modelo e)
+        {
+            cliente.ActualizarVista(Leer(e));
+        }
+
+        private void Cliente_ClienteSeleccionado(object sender, Modelo e)
+        {
+            cliente.ActualizarVista(Seleccionar(e));
         }
     }
 }

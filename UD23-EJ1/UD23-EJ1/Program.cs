@@ -1,27 +1,40 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Windows.Forms;
-using UD22_EJ1.View;
+using System.Data;
+using System.Data.SqlClient;
 using UD22_EJ1.Controller;
+using UD22_EJ1.DataLayer;
+using UD22_EJ1.View;
 
 namespace UD22_EJ1
 {
-    static class Program
+    public class Program
     {
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
-            //Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-
             Cliente cliente = new Cliente();
-            Controlador controlador = new Controlador(cliente);
-            cliente.ShowDialog();
-            //Application.Run(cliente);
 
+            var configBuilder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .AddUserSecrets<Program>()
+                .AddEnvironmentVariables();
+            var config = configBuilder.Build();
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IConfiguration>(config);
+            services.AddSingleton<ICliente>(cliente);
+            services.AddSingleton<IDbConnection>(new SqlConnection(config.GetConnectionString("default")));
+            services.AddSingleton<IClienteRepositorio, ClienteRepositorioSQL>();
+            services.AddSingleton<IControlador, Controlador>();
+            var sp = services.BuildServiceProvider();
+
+            IControlador controlador = sp.GetService<IControlador>();
+            cliente.ShowDialog();
 
         }
     }

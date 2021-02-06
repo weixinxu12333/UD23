@@ -60,10 +60,7 @@
   <data name="label6.Text" xml:space="preserve">
     <value>Como usar?
 -AGREGAR CLIENTE: Introducir los datos, y clicas el botón. 
--ACTUALIZAR CLIENTE: Introducir los datos al campo, sobre todo hay que poner DNI, sirve para encontrar el cliente. Clica botón actualizar cliente.
--ELIMINAR CLIENTE: Introducir DNI y clicar botón eliminar cliente.
--VER CLIENTE: Introducir DNI y clicar botón ver cliente
--VER TODOS CLIENTES: mostra la lista de todos los clientes que hay en base de datos.
-</value>
+-ACTUALIZAR CLIENTE: Primero hacer doble click al cliente que quieres actualizar. Luego introducir los datos nuevos. Por último clica botón actualizar cliente.
+-ELIMINAR CLIENTE: Hacer doble click sobre el cliente y clicar botón eliminar cliente.</value>
   </data>
 </root>
