@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
+using System.Windows.Forms;
+using System.Data;
 
 namespace UD22_EJ1.Model
 {
@@ -16,7 +18,7 @@ namespace UD22_EJ1.Model
         {
             try
             {
-                conexion = new SqlConnection("server=192.168.1.40; Database=clientes; User id=sa; Password=Aqwerty963.");
+                conexion = new SqlConnection("");
                 conexion.Open();
                 Console.WriteLine("Conectado");
             }
@@ -53,5 +55,69 @@ namespace UD22_EJ1.Model
             }
         }
 
+        public string Leer(string cadena)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand(cadena, conexion);
+                SqlDataReader registros = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(registros);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    int i = 0;
+                    foreach (DataColumn dc in dt.Columns)
+                    {
+                        return dr[i].ToString();
+                        i++;
+                    }
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                return "Error "+e;
+            }
+        }
+
+        ////public string AgregarCliente(string nombre, string apellido, string direccion, string dni, string fecha)
+        ////{
+        ////    string cadena = "INSERT INTO cliente VALUES(" + nombre + "," + apellido + "," + direccion + "," + dni + "," + fecha + ");";
+        ////    return cadena;
+        ////}
+
+        //public string ActualizarCliente(string nombre, string apellido, string direccion, string dni, string fecha)
+        //{
+        //    string cadena = "UPDATE cliente SET nombre =" + nombre + ",apellido=" + apellido + ",direccion=" + direccion + ",dni=" + dni + ", fecha=" + fecha + ";";
+        //    return cadena;
+        //}
+
+        //public void EliminarCliente(string dni)
+        //{
+        //    Modelo modelo = new Modelo();
+        //    modelo.ConectarBD();
+        //    string cadena = "DELETE FROM cliente WHERE dni=" + dni + ";";
+        //    modelo.Ejecutar(cadena);
+        //    modelo.DesconectarBD();
+        //}
+
+        //public void VerCliente(string dni)
+        //{
+        //    Modelo modelo = new Modelo();
+        //    modelo.ConectarBD();
+        //    string cadena = "SELECT * FROM cliente WHERE dni=" + dni + ";";
+        //    modelo.Ejecutar(cadena);
+        //    modelo.DesconectarBD();
+        //}
+
+        //public void VerClienteTodos()
+        //{
+        //    Modelo modelo = new Modelo();
+        //    modelo.ConectarBD();
+        //    string cadena = "SELECT * FROM cliente;";
+        //    modelo.Ejecutar(cadena);
+        //    modelo.DesconectarBD();
+        //}
     }
 }

@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UD22_EJ1.View;
+using UD22_EJ1.Controller;
 
 namespace UD22_EJ1
 {
@@ -15,10 +13,16 @@ namespace UD22_EJ1
         [STAThread]
         static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Menu());
+            //Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            Cliente cliente = new Cliente();
+            Controlador controlador = new Controlador(cliente);
+            cliente.ShowDialog();
+            //Application.Run(cliente);
+
+
         }
     }
 }

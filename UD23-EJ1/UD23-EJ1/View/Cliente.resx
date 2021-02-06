@@ -57,4 +57,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Como usar?
+-AGREGAR CLIENTE: Introducir los datos, y clicas el botón. 
+-ACTUALIZAR CLIENTE: Introducir los datos al campo, sobre todo hay que poner DNI, sirve para encontrar el cliente. Clica botón actualizar cliente.
+-ELIMINAR CLIENTE: Introducir DNI y clicar botón eliminar cliente.
+-VER CLIENTE: Introducir DNI y clicar botón ver cliente
+-VER TODOS CLIENTES: mostra la lista de todos los clientes que hay en base de datos.
+</value>
+  </data>
 </root>
